@@ -1,7 +1,10 @@
+
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination, Navigation } from 'swiper/modules'
+import { FaChalkboardTeacher, FaTrophy, FaShieldAlt, FaPalette } from 'react-icons/fa'
+import { HiStar } from 'react-icons/hi'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
@@ -39,7 +42,9 @@ export default function HomePage() {
   }, [])
 
   const renderStars = (rating) => {
-    return '⭐'.repeat(rating)
+    return [...Array(rating)].map((_, i) => (
+      <HiStar key={i} className="inline-block text-yellow-400 text-xl" />
+    ))
   }
 
   return (
@@ -57,20 +62,39 @@ export default function HomePage() {
         </Link>
       </div>
 
-      {/* Highlights Section */}
+      {/* Highlights Section with Font Icons */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {[
-          { icon: '🎓', title: 'Qualified Teachers', desc: 'Experienced and caring educators' },
-          { icon: '🏆', title: 'Proven Curriculum', desc: 'Montessori-inspired approach' },
-          { icon: '🛡️', title: 'Safe Environment', desc: '24/7 CCTV and secure entry' },
-          { icon: '🎨', title: 'Creative Learning', desc: 'Art, music, and hands-on activities' }
-        ].map((item, index) => (
-          <div key={index} className="card p-6 text-center hover:transform hover:scale-105 transition-all duration-300">
-            <div className="text-5xl mb-4">{item.icon}</div>
-            <h3 className="text-xl font-bold text-kindergarten-text mb-2">{item.title}</h3>
-            <p className="text-kindergarten-text-light">{item.desc}</p>
+        <div className="card p-6 text-center hover:transform hover:scale-105 transition-all duration-300">
+          <div className="flex justify-center mb-4">
+            <FaChalkboardTeacher className="text-5xl text-kindergarten-primary" />
           </div>
-        ))}
+          <h3 className="text-xl font-bold text-kindergarten-text mb-2">Qualified Teachers</h3>
+          <p className="text-kindergarten-text-light">Experienced and caring educators</p>
+        </div>
+        
+        <div className="card p-6 text-center hover:transform hover:scale-105 transition-all duration-300">
+          <div className="flex justify-center mb-4">
+            <FaTrophy className="text-5xl text-kindergarten-primary" />
+          </div>
+          <h3 className="text-xl font-bold text-kindergarten-text mb-2">Proven Curriculum</h3>
+          <p className="text-kindergarten-text-light">Montessori-inspired approach</p>
+        </div>
+        
+        <div className="card p-6 text-center hover:transform hover:scale-105 transition-all duration-300">
+          <div className="flex justify-center mb-4">
+            <FaShieldAlt className="text-5xl text-kindergarten-primary" />
+          </div>
+          <h3 className="text-xl font-bold text-kindergarten-text mb-2">Safe Environment</h3>
+          <p className="text-kindergarten-text-light">Safe and nurturing space</p>
+        </div>
+        
+        <div className="card p-6 text-center hover:transform hover:scale-105 transition-all duration-300">
+          <div className="flex justify-center mb-4">
+            <FaPalette className="text-5xl text-kindergarten-primary" />
+          </div>
+          <h3 className="text-xl font-bold text-kindergarten-text mb-2">Creative Learning</h3>
+          <p className="text-kindergarten-text-light">Art, music, and hands-on activities</p>
+        </div>
       </div>
 
       {/* Testimonials Carousel */}
@@ -96,10 +120,12 @@ export default function HomePage() {
             {testimonials.map((testimonial) => (
               <SwiperSlide key={testimonial.id}>
                 <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
-                  <div className="text-yellow-400 text-xl mb-3">{renderStars(testimonial.rating)}</div>
+                  <div className="mb-3">{renderStars(testimonial.rating)}</div>
                   <p className="text-kindergarten-text italic mb-4">"{testimonial.content}"</p>
                   <div className="flex items-center gap-3 pt-3 border-t">
-                    <div className="text-3xl"></div>
+                    <div className="w-10 h-10 bg-kindergarten-primary rounded-full flex items-center justify-center text-white font-bold">
+                      {testimonial.parent_name.charAt(0)}
+                    </div>
                     <div>
                       <strong className="block text-kindergarten-text">{testimonial.parent_name}</strong>
                       <span className="text-sm text-kindergarten-text-light">Parent of {testimonial.child_name}</span>
